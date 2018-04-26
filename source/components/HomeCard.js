@@ -6,19 +6,19 @@ import { favorite, unfavorite } from '../actions/index.js';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-class HomeCard extends React.Component {
+export default class HomeCard extends React.Component {
     constructor(props) {
         super(props);
     }
 
     favoriteHandler() {
         //this.setState({ isFavorited: true}) // need global redux state for the favorited tab
-        this.props.actions.favorite();
+        //this.props.actions.favorite();
     }
 
     unfavoriteHandler() {
         //this.setState({ isFavorited: false}) // need global redux state for the favorited tab
-        this.props.actions.unfavorite();
+        //this.props.actions.unfavorite();
     }
 
     render() {
@@ -57,16 +57,3 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
 });
-
-/*
-  This function specifies which part of state is to be shared with the Following component.
- */
-const mapStateToProps = (state) => ({
-    isFavorite: state.favorite.isFavorited
-});
-
-const mapDispatchToProps = (dispatch) => ({
-    actions: bindActionCreators({ favorite, unfavorite }, dispatch)
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(HomeCard);

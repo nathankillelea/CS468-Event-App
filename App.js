@@ -23,6 +23,7 @@ import HomeDetail from './source/components/HomeDetail.js';
 YellowBox.ignoreWarnings([
     'Warning: componentWillMount is deprecated',
     'Warning: componentWillReceiveProps is deprecated',
+    'Warning: componentWillUpdate is deprecated',
 ]);
 
 /**

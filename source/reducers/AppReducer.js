@@ -1,11 +1,12 @@
 import { combineReducers } from 'redux';
 
-import FavoriteReducer from './FavoriteReducer.js';
+import DealReducer from './DealReducer.js';
+
 /**
  * The AppReducer combines all of the other reducers together.
  */
 const AppReducer = combineReducers({
-    favorite: FavoriteReducer,
+    deal: DealReducer,
 });
 
 export default AppReducer;
