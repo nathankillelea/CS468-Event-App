@@ -20,6 +20,7 @@ YellowBox.ignoreWarnings([
     'Warning: componentWillMount is deprecated',
     'Warning: componentWillReceiveProps is deprecated',
     'Warning: componentWillUpdate is deprecated',
+    'Warning: Each child in an array or iterator should have a unique'
 ]);
 
 /**

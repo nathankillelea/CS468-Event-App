@@ -9,6 +9,8 @@ const initialState = {
             color: '#E5461F',
             isFavorited: false,
             index: 0,
+            latitude: 40.0963625,
+            longitude: -88.2360834
         },
         {
             deal: '10% OFF CONCERT TICKET',
@@ -19,6 +21,8 @@ const initialState = {
             color: '#E5461F',
             isFavorited: false,
             index: 1,
+            latitude: 40.1079313,
+            longitude: -88.2225308
         },
         {
             deal: 'FREE COOKING CLASS',
@@ -29,6 +33,8 @@ const initialState = {
             color: '#E5461F',
             isFavorited: false,
             index: 2,
+            latitude: 40.15,
+            longitude: -88.25
         }
     ],
 };

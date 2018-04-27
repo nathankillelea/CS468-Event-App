@@ -21,40 +21,22 @@ class Map extends React.Component {
     }
 
     render() {
-        return(
-            <View style={styles.container}>
-                <MapView style={styles.map}
-                         region={{
-                             latitude: 40.1080007,
-                             longitude: -88.2224638,
-                             latitudeDelta: .05,
-                             longitudeDelta: .05,
-                         }}
-                         provider="google"
-                         showsUserLocation={true}
-                         showsMyLocationButton={true}>
-                    <MapView.Marker
-                        coordinate={{
-                            latitude: 40.1080007,
-                            longitude: -88.2224638,
-                        }}
-                        title={'Concert'}
-                        description={'Shitty Orchestra'}
-                        onPress={() => this.testFunc("100% off", require('../assets/fightingillinibasketball.jpg'), "event2", '#555555', 'description')}
-                    />
-                    <MapView.Marker
-                        coordinate={{
-                            latitude: 40.0962534,
-                            longitude: -88.2358917,
-                        }}
-                        title={'Basketball Game'}
-                        description={'Illinois vs Kansas State'}
-                        onPress={() => this.testFunc("100% off", require('../assets/fightingillinibasketball.jpg'), "event1", '#555555', 'description')}
-                    />
-
-                </MapView>
-            </View>
-        );
+        return <View style={styles.container}>
+            <MapView style={styles.map}
+                     region={{latitude: 40.1080007, longitude: -88.2224638, latitudeDelta: .05, longitudeDelta: .05}}
+                     showsMyLocationButton = {true}
+                     showsUserLocation={true}
+                     provider={'google'}>
+                {this.props.dealList.map(marker =>
+                    (
+                        <MapView.Marker
+                            coordinate={{latitude: marker.latitude, longitude: marker.longitude}}
+                            title={marker.deal}
+                            description={marker.title}
+                            onPress = {() => this.testFunc(marker.deal, marker.img, marker.title, marker.color, marker.description)}/>
+                    ))}
+            </MapView>
+        </View>;
 
     }
 }
