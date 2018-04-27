@@ -1,12 +1,12 @@
 import { combineReducers } from 'redux';
 
-import DealReducer from './DealReducer.js';
+import DataReducer from './DataReducer.js';
 
 /**
  * The AppReducer combines all of the other reducers together.
  */
 const AppReducer = combineReducers({
-    deal: DealReducer,
+    data: DataReducer,
 });
 
 export default AppReducer;

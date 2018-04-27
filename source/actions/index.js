@@ -4,3 +4,10 @@ export function toggle_favorite(index) {
         index
     }
 }
+
+export function redeem(index) {
+    return {
+        type: 'REDEEM',
+        index
+    }
+}

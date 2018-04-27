@@ -1,10 +1,9 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image, TouchableOpacity, ImageBackground } from 'react-native';
+import { StyleSheet, Text, View, ImageBackground, TouchableWithoutFeedback } from 'react-native';
 import { Icon } from 'react-native-elements';
 
 import { toggle_favorite } from '../actions/index.js';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 
 class HomeCard extends React.Component {
     constructor(props) {
@@ -21,9 +20,13 @@ class HomeCard extends React.Component {
                     >
                         <View style={{marginTop: 16, marginRight: 16}}>
                             {this.props.isFavorited ? (
-                                <Icon type={'font-awesome'} name={'heart'} color={'red'} size={32} onPress={() => this.props.dispatch(toggle_favorite(this.props.index))}/>
+                                <TouchableWithoutFeedback onPress={() => this.props.dispatch(toggle_favorite(this.props.index))}>
+                                    <Icon type={'font-awesome'} name={'heart'} color={'red'} size={32} />
+                                </TouchableWithoutFeedback>
                             ) : (
-                                <Icon type={'font-awesome'} name={'heart'} color={'#FFF'} size={32} onPress={() => this.props.dispatch(toggle_favorite(this.props.index))}/>
+                                <TouchableWithoutFeedback onPress={() => this.props.dispatch(toggle_favorite(this.props.index))}>
+                                    <Icon type={'font-awesome'} name={'heart'} color={'#FFF'} size={32} />
+                                </TouchableWithoutFeedback>
                             )}
                         </View>
                     </ImageBackground>

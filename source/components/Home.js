@@ -15,13 +15,13 @@ class Home extends React.Component {
     }
 
     render() {
-        console.log(this.props.dealList);
+        console.log(this.props.data);
         return(
             <View style={{backgroundColor: '#FFF', flex: 1}}>
-                <View style={{height: 60, borderBottomWidth: 4, borderBottomColor: '#E5461F', width: '100%', flexDirection: 'row'}}>
-                    <Text style={{marginTop: 20, marginLeft: 30, fontSize: 24, fontFamily: 'quicksand-bold'}}>DEALS</Text>
-                    <Text style={{marginTop: 20, marginLeft: 40, fontSize: 24, fontFamily: 'quicksand-bold'}}>EXPERIENCES</Text>
-                    <View style={{marginTop: 10, flex: 1, justifyContent: 'flex-end', flexDirection: 'row', marginRight: 30}}>
+                <View style={{height: 65, borderBottomWidth: 4, borderBottomColor: '#E5461F', width: '100%', flexDirection: 'row'}}>
+                    <Text style={{marginTop: 30, marginLeft: 30, fontSize: 24, fontFamily: 'quicksand-bold'}}>DEALS</Text>
+                    <Text style={{marginTop: 30, marginLeft: 40, fontSize: 24, fontFamily: 'quicksand-bold'}}>EXPERIENCES</Text>
+                    <View style={{marginTop: 20, flex: 1, justifyContent: 'flex-end', flexDirection: 'row', marginRight: 30}}>
                         <Icon type={'feather'} name={'search'} />
                     </View>
                 </View>
@@ -29,10 +29,10 @@ class Home extends React.Component {
                     <FlatList
                         contentContainerStyle={{ paddingBottom:30 }}
                         style={{height: '100%', paddingTop: 30}}
-                        data={this.props.dealList}
+                        data={this.props.data}
                         showsVerticalScrollIndicator={false}
                         renderItem={({ item }) => (
-                            <TouchableOpacity onPress={() => this.props.navigation.navigate('HomeDetail', {deal: item.deal, img: item.img, title: item.title, color: item.color, description: item.description})}>
+                            <TouchableOpacity onPress={() => this.props.navigation.navigate('HomeDetail', {deal: item.deal, img: item.img, title: item.title, color: item.color, description: item.description, isRedeemed: item.isRedeemed, isFavorited: item.isFavorited, index: item.index})}>
                                 <HomeCard
                                     deal={item.deal}
                                     img={item.img}
@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => ({
-    dealList: state.deal.dealList
+    data: state.data.data
 });
 
 export default connect(mapStateToProps)(Home);

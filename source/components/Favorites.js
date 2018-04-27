@@ -17,7 +17,7 @@ class Favorites extends React.Component {
     renderItem = ({ item }) => {
         if(item.isFavorited === true) {
             return(
-                <TouchableOpacity onPress={() => this.props.navigation.navigate('HomeDetail', {deal: item.deal, img: item.img, title: item.title, color: item.color, description: item.description})}>
+                <TouchableOpacity onPress={() => this.props.navigation.navigate('HomeDetail', {deal: item.deal, img: item.img, title: item.title, color: item.color, description: item.description, isRedeemed: item.isRedeemed, isFavorited: item.isFavorited, index: item.index})}>
                     <HomeCard
                         deal={item.deal}
                         img={item.img}
@@ -34,14 +34,14 @@ class Favorites extends React.Component {
     render() {
         return(
             <View style={{backgroundColor: '#FFF', flex: 1}}>
-                <View style={{height: 60, borderBottomWidth: 4, borderBottomColor: '#E5461F', width: '100%', flexDirection: 'row'}}>
-                    <Text style={{marginTop: 20, marginLeft: 30, fontSize: 24, fontFamily: 'quicksand-bold'}}>FAVORITES</Text>
+                <View style={{height: 65, borderBottomWidth: 4, borderBottomColor: '#E5461F', width: '100%', flexDirection: 'row'}}>
+                    <Text style={{marginTop: 30, marginLeft: 30, fontSize: 24, fontFamily: 'quicksand-bold'}}>FAVORITES</Text>
                 </View>
                 <List containerStyle={{ borderTopWidth: 0, width: '100%', marginTop: 0, paddingTop: 0 , flex: 1}}>
                     <FlatList
                         contentContainerStyle={{ paddingBottom:30 }}
                         style={{height: '100%', paddingTop: 30}}
-                        data={this.props.dealList}
+                        data={this.props.data}
                         showsVerticalScrollIndicator={false}
                         renderItem={this.renderItem}
                         keyExtractor={item => item.description}
@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => ({
-    dealList: state.deal.dealList
+    data: state.data.data
 });
 
 export default connect(mapStateToProps)(Favorites);

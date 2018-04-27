@@ -13,12 +13,6 @@ class Map extends React.Component {
     constructor() {
         super();
     }
-    testFunc(deal, img, title, color, descrip) {
-        this.props.navigation.navigate('HomeDetail', {deal: deal, img: img, title: title, color: color, description: descrip})
-    }
-    test2Func(){
-        console.log(this.props.dealList)
-    }
 
     render() {
         return <View style={styles.container}>
@@ -27,13 +21,13 @@ class Map extends React.Component {
                      showsMyLocationButton = {true}
                      showsUserLocation={true}
                      provider={'google'}>
-                {this.props.dealList.map(marker =>
+                {this.props.data.map(marker =>
                     (
                         <MapView.Marker
                             coordinate={{latitude: marker.latitude, longitude: marker.longitude}}
                             title={marker.deal}
                             description={marker.title}
-                            onPress = {() => this.testFunc(marker.deal, marker.img, marker.title, marker.color, marker.description)}/>
+                            onPress = {() => this.props.navigation.navigate('HomeDetail', {deal: marker.deal, img: marker.img, title: marker.title, color: marker.color, description: marker.description, isRedeemed: marker.isRedeemed, isFavorited: marker.isFavorited, index: marker.index})}/>
                     ))}
             </MapView>
         </View>;
@@ -57,7 +51,6 @@ const styles = StyleSheet.create({
     }
 });
 const mapStateToProps = (state) => ({
-    dealList: state.deal.dealList
+    data: state.data.data
 });
 export default connect(mapStateToProps)(Map);
-//export default
