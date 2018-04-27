@@ -15,6 +15,7 @@ class Home extends React.Component {
     }
 
     render() {
+        console.log(this.props.dealList);
         return(
             <View style={{backgroundColor: '#FFF', flex: 1}}>
                 <View style={{height: 60, borderBottomWidth: 4, borderBottomColor: '#E5461F', width: '100%', flexDirection: 'row'}}>
@@ -24,8 +25,9 @@ class Home extends React.Component {
                         <Icon type={'feather'} name={'search'} />
                     </View>
                 </View>
-                <List containerStyle={{ borderTopWidth: 0, width: '100%', marginTop: 0, paddingTop: 0 , flex: 1, marginBottom: 30}}>
+                <List containerStyle={{ borderTopWidth: 0, width: '100%', marginTop: 0, paddingTop: 0 , flex: 1}}>
                     <FlatList
+                        contentContainerStyle={{ paddingBottom:30 }}
                         style={{height: '100%', paddingTop: 30}}
                         data={this.props.dealList}
                         showsVerticalScrollIndicator={false}
@@ -37,10 +39,11 @@ class Home extends React.Component {
                                     title={item.title}
                                     color={item.color}
                                     isFavorited={item.isFavorited}
+                                    index={item.index}
                                 />
                             </TouchableOpacity>
                         )}
-                        keyExtractor={item => item.key}
+                        keyExtractor={item => item.description}
                     />
                 </List>
             </View>

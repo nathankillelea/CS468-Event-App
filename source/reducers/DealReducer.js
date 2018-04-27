@@ -1,4 +1,3 @@
-// not working ??
 const initialState = {
     dealList: [
         {
@@ -9,7 +8,7 @@ const initialState = {
             img: require('../assets/fightingillinibasketball.jpg'),
             color: '#E5461F',
             isFavorited: false,
-            key: '1'
+            index: 0,
         },
         {
             deal: '10% OFF CONCERT TICKET',
@@ -19,7 +18,7 @@ const initialState = {
             img: require('../assets/krannert.jpg'),
             color: '#E5461F',
             isFavorited: false,
-            key: '2'
+            index: 1,
         },
         {
             deal: 'FREE COOKING CLASS',
@@ -29,20 +28,20 @@ const initialState = {
             img: require('../assets/cooking.jpg'),
             color: '#E5461F',
             isFavorited: false,
-            key: '3'
+            index: 2,
         }
     ],
 };
 
 const DealReducer = (state = initialState, action) => {
+    console.log(action);
     switch (action.type) {
-        case 'FAVORITE':
+        case 'TOGGLE_FAVORITE':
             return {
-                isFavorited: action.isFavorited,
-            };
-        case 'UNFAVORITE':
-            return {
-                isFavorited: action.isFavorited,
+                dealList: state.dealList.map(
+                    (deal) => deal.index === action.index ? {...deal, isFavorited: !deal.isFavorited}
+                                                          : deal
+                )
             };
         default:
             return state;

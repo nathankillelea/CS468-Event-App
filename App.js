@@ -5,11 +5,7 @@ import { FontAwesome } from '@expo/vector-icons';
 import { Font } from 'expo';
 import { YellowBox } from 'react-native';
 import { Provider } from 'react-redux';
-import { createStore, applyMiddleware } from 'redux';
-import thunk from 'redux-thunk';
-import { persistStore, persistReducer } from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
-import { PersistGate } from 'redux-persist/integration/react';
+import { createStore } from 'redux';
 
 import AppReducer from './source/reducers/AppReducer.js';
 
@@ -80,13 +76,6 @@ export const Navigation = StackNavigator({
     headerMode: 'screen'
 });
 
-const persistConfig = {
-    key: 'root',
-    storage,
-};
-
-const persistedReducer = persistReducer(persistConfig, AppReducer);
-
 export default class App extends React.Component {
     constructor() {
         super();
@@ -102,8 +91,7 @@ export default class App extends React.Component {
         this.setState({ fontLoading: false});
     }
 
-    store = createStore(persistedReducer, applyMiddleware(thunk));
-    persistor = persistStore(this.store);
+    store = createStore(AppReducer);
 
     render() {
         if(this.state.fontLoading === true) {
@@ -115,9 +103,7 @@ export default class App extends React.Component {
         }
         return (
             <Provider store={this.store}>
-                <PersistGate loading={null} persistor={this.persistor}>
-                    <Navigation />
-                </PersistGate>
+                <Navigation />
             </Provider>
         );
     }

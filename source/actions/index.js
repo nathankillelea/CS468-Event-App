@@ -1,18 +1,6 @@
-// not working??
-export function favorite() {
-    return(dispatch) => {
-        dispatch({
-            type: 'FAVORITE',
-            isFavorited: true
-        })
-    }
-}
-
-export function unfavorite() {
-    return(dispatch) => {
-        dispatch({
-            type: 'UNFAVORITE',
-            isFavorited: false
-        })
+export function toggle_favorite(index) {
+    return {
+        type: 'TOGGLE_FAVORITE',
+        index
     }
 }

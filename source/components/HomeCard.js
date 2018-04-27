@@ -2,23 +2,13 @@ import React from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity, ImageBackground } from 'react-native';
 import { Icon } from 'react-native-elements';
 
-import { favorite, unfavorite } from '../actions/index.js';
+import { toggle_favorite } from '../actions/index.js';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-export default class HomeCard extends React.Component {
+class HomeCard extends React.Component {
     constructor(props) {
         super(props);
-    }
-
-    favoriteHandler() {
-        //this.setState({ isFavorited: true}) // need global redux state for the favorited tab
-        //this.props.actions.favorite();
-    }
-
-    unfavoriteHandler() {
-        //this.setState({ isFavorited: false}) // need global redux state for the favorited tab
-        //this.props.actions.unfavorite();
     }
 
     render() {
@@ -31,9 +21,9 @@ export default class HomeCard extends React.Component {
                     >
                         <View style={{marginTop: 16, marginRight: 16}}>
                             {this.props.isFavorited ? (
-                                <Icon type={'font-awesome'} name={'heart'} color={'red'} size={32} onPress={() => this.unfavoriteHandler()}/>
+                                <Icon type={'font-awesome'} name={'heart'} color={'red'} size={32} onPress={() => this.props.dispatch(toggle_favorite(this.props.index))}/>
                             ) : (
-                                <Icon type={'font-awesome'} name={'heart'} color={'#FFF'} size={32} onPress={() => this.favoriteHandler()}/>
+                                <Icon type={'font-awesome'} name={'heart'} color={'#FFF'} size={32} onPress={() => this.props.dispatch(toggle_favorite(this.props.index))}/>
                             )}
                         </View>
                     </ImageBackground>
@@ -57,3 +47,5 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
 });
+
+export default connect()(HomeCard);
