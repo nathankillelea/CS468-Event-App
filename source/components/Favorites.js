@@ -41,7 +41,7 @@ class Favorites extends React.Component {
         dist = Math.round( dist * 10 ) / 10;
         if(item.isFavorited === true) {
             return(
-                <TouchableOpacity onPress={() => this.props.navigation.navigate('HomeDetail', {deal: item.deal, img: item.img, title: item.title, color: item.color, description: item.description, isRedeemed: item.isRedeemed, isFavorited: item.isFavorited, index: item.index, timeRemaining: item.timeRemaining, latitude: item.latitude, longitude: item.longitude})}>
+                <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('HomeDetail', {deal: item.deal, img: item.img, title: item.title, color: item.color, description: item.description, isRedeemed: item.isRedeemed, isFavorited: item.isFavorited, index: item.index, timeRemaining: item.timeRemaining, latitude: item.latitude, longitude: item.longitude})}>
                     <HomeCard
                         deal={item.deal}
                         img={item.img}

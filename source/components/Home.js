@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, FlatList, TouchableWithoutFeedback, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, FlatList, TouchableWithoutFeedback, TouchableOpacity, TextInput } from 'react-native';
 import { List, Icon } from 'react-native-elements';
 import HomeCard from './HomeCard.js';
 import { connect } from 'react-redux';
@@ -18,7 +18,8 @@ class Home extends React.Component {
             isExperiencesPressed: false,
             isSearchPressed: false,
             userLatitude: 0,
-            userLongitude: 0
+            userLongitude: 0,
+            query: '',
         }
     }
 
@@ -42,10 +43,28 @@ class Home extends React.Component {
         );
         dist = dist * 0.000621371192;
         dist = Math.round( dist * 10 ) / 10;
-        if(this.state.isDealPressed) {
+        if(this.state.isSearchPressed) {
+            if(item.deal.toLowerCase().includes(this.state.query.toLowerCase()) || item.title.toLowerCase().includes(this.state.query.toLowerCase())) {
+                return(
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('HomeDetail', {deal: item.deal, img: item.img, title: item.title, color: item.color, description: item.description, isRedeemed: item.isRedeemed, isFavorited: item.isFavorited, index: item.index, timeRemaining: item.timeRemaining, latitude: item.latitude, longitude: item.longitude})}>
+                        <HomeCard
+                            deal={item.deal}
+                            img={item.img}
+                            title={item.title}
+                            color={item.color}
+                            isFavorited={item.isFavorited}
+                            index={item.index}
+                            distance={dist}
+                            timeRemaining={item.timeRemaining}
+                        />
+                    </TouchableOpacity>
+                );
+            }
+        }
+        else if(this.state.isDealPressed) {
             if(item.type === 'deal') {
                 return(
-                    <TouchableOpacity onPress={() => this.props.navigation.navigate('HomeDetail', {deal: item.deal, img: item.img, title: item.title, color: item.color, description: item.description, isRedeemed: item.isRedeemed, isFavorited: item.isFavorited, index: item.index, timeRemaining: item.timeRemaining, latitude: item.latitude, longitude: item.longitude})}>
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('HomeDetail', {deal: item.deal, img: item.img, title: item.title, color: item.color, description: item.description, isRedeemed: item.isRedeemed, isFavorited: item.isFavorited, index: item.index, timeRemaining: item.timeRemaining, latitude: item.latitude, longitude: item.longitude})}>
                         <HomeCard
                             deal={item.deal}
                             img={item.img}
@@ -63,7 +82,7 @@ class Home extends React.Component {
         else if(this.state.isExperiencesPressed) {
             if(item.type === 'experience') {
                 return(
-                    <TouchableOpacity onPress={() => this.props.navigation.navigate('HomeDetail', {deal: item.deal, img: item.img, title: item.title, color: item.color, description: item.description, isRedeemed: item.isRedeemed, isFavorited: item.isFavorited, index: item.index, timeRemaining: item.timeRemaining, latitude: item.latitude, longitude: item.longitude})}>
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('HomeDetail', {deal: item.deal, img: item.img, title: item.title, color: item.color, description: item.description, isRedeemed: item.isRedeemed, isFavorited: item.isFavorited, index: item.index, timeRemaining: item.timeRemaining, latitude: item.latitude, longitude: item.longitude})}>
                         <HomeCard
                             deal={item.deal}
                             img={item.img}
@@ -98,14 +117,42 @@ class Home extends React.Component {
 
     searchPressedHandler() {
         this.setState({
-            isDealPressed: false,
-            isExperiencesPressed: false,
             isSearchPressed: true,
         })
     }
 
     render() {
-        if(this.state.isDealPressed) {
+        if(this.state.isSearchPressed) {
+            return(
+                <View style={{backgroundColor: '#FFF', flex: 1}}>
+                    <View style={{height: 65, borderBottomWidth: 4, borderBottomColor: '#dbdff0', width: '100%', flexDirection: 'row'}}>
+                        <View style={{marginTop: 20, flex: 1, justifyContent: 'flex-start', flexDirection: 'row', marginLeft: 25}}>
+                            <Icon type={'feather'} name={'search'} color={'#b6b7b6'}/>
+                            <TextInput
+                                placeholder={'SEARCH'}
+                                placeholderTextColor={'#b6b7b6'}
+                                onChangeText={(input) => this.setState({ query: input })}
+                                style={{ fontFamily: 'quicksand-bold', fontSize: 24, color: '#b6b7b6', width: '80%', paddingLeft: 4 }}
+                            />
+                            <TouchableWithoutFeedback onPress={() => this.setState({ isSearchPressed: false, query: '' })}>
+                                <Icon type={'feather'} name={'x'} color={'#b6b7b6'} />
+                            </TouchableWithoutFeedback>
+                        </View>
+                    </View>
+                    <List containerStyle={{ borderTopWidth: 0, width: '100%', marginTop: 0, paddingTop: 0 , flex: 1}}>
+                        <FlatList
+                            contentContainerStyle={{ paddingBottom:30 }}
+                            style={{height: '100%', paddingTop: 30}}
+                            data={this.props.data}
+                            showsVerticalScrollIndicator={false}
+                            renderItem={this.renderItem}
+                            keyExtractor={item => item.description}
+                        />
+                    </List>
+                </View>
+            );
+        }
+        else if(this.state.isDealPressed) {
             return(
                 <View style={{backgroundColor: '#FFF', flex: 1}}>
                     <View style={{height: 65, borderBottomWidth: 2, borderBottomColor: '#f9d3c9', width: '100%', flexDirection: 'row'}}>
@@ -170,9 +217,6 @@ class Home extends React.Component {
                     </List>
                 </View>
             );
-        }
-        else if(this.state.isSearchPressed) {
-            return null;
         }
     }
 }

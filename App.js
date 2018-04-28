@@ -2,7 +2,10 @@ import React from 'react';
 import { StyleSheet, Text, View, AppRegistry, ActivityIndicator } from 'react-native';
 import { TabNavigator, StackNavigator, TabBarBottom } from 'react-navigation';
 import { FontAwesome } from '@expo/vector-icons';
-import { Font } from 'expo';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { Feather } from '@expo/vector-icons';
+
+import { Font, Asset } from 'expo';
 import { YellowBox } from 'react-native';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
@@ -20,7 +23,8 @@ YellowBox.ignoreWarnings([
     'Warning: componentWillMount is deprecated',
     'Warning: componentWillReceiveProps is deprecated',
     'Warning: componentWillUpdate is deprecated',
-    'Warning: Each child in an array or iterator should have a unique'
+    'Warning: Each child in an array or iterator should have a unique',
+    'Remote debugger is in a background tab'
 ]);
 
 /**
@@ -81,21 +85,33 @@ export default class App extends React.Component {
     constructor() {
         super();
         this.state = {
-            fontLoading: true,
+            appLoading: true,
         }
     }
+
     async componentDidMount() {
         await Font.loadAsync({
             'quicksand-bold': require('./source/assets/fonts/Quicksand-Bold.ttf'),
-            'Intro': require('./source/assets/fonts/Intro.ttf')
+            'Intro': require('./source/assets/fonts/Intro.ttf'),
+            ...MaterialCommunityIcons.font,
+            ...Feather.font,
+            ...FontAwesome.font
         });
-        this.setState({ fontLoading: false});
+        await Asset.loadAsync([
+            require('./source/assets/cooking.jpg'),
+            require('./source/assets/fightingillinibasketball.jpg'),
+            require('./source/assets/fightingillinifootball.jpg'),
+            require('./source/assets/japanhouse.jpg'),
+            require('./source/assets/krannert.jpg'),
+            require('./source/assets/yoga.jpg'),
+        ]);
+        this.setState({ appLoading: false});
     }
 
     store = createStore(AppReducer);
 
     render() {
-        if(this.state.fontLoading === true) {
+        if(this.state.appLoading === true) {
             return(
                 <View style={styles.container}>
                     <ActivityIndicator />
