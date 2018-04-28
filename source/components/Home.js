@@ -45,7 +45,7 @@ class Home extends React.Component {
         if(this.state.isDealPressed) {
             if(item.type === 'deal') {
                 return(
-                    <TouchableOpacity onPress={() => this.props.navigation.navigate('HomeDetail', {deal: item.deal, img: item.img, title: item.title, color: item.color, description: item.description, isRedeemed: item.isRedeemed, isFavorited: item.isFavorited, index: item.index, timeRemaining: item.timeRemaining})}>
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate('HomeDetail', {deal: item.deal, img: item.img, title: item.title, color: item.color, description: item.description, isRedeemed: item.isRedeemed, isFavorited: item.isFavorited, index: item.index, timeRemaining: item.timeRemaining, latitude: item.latitude, longitude: item.longitude})}>
                         <HomeCard
                             deal={item.deal}
                             img={item.img}
@@ -63,7 +63,7 @@ class Home extends React.Component {
         else if(this.state.isExperiencesPressed) {
             if(item.type === 'experience') {
                 return(
-                    <TouchableOpacity onPress={() => this.props.navigation.navigate('HomeDetail', {deal: item.deal, img: item.img, title: item.title, color: item.color, description: item.description, isRedeemed: item.isRedeemed, isFavorited: item.isFavorited, index: item.index, timeRemaining: item.timeRemaining})}>
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate('HomeDetail', {deal: item.deal, img: item.img, title: item.title, color: item.color, description: item.description, isRedeemed: item.isRedeemed, isFavorited: item.isFavorited, index: item.index, timeRemaining: item.timeRemaining, latitude: item.latitude, longitude: item.longitude})}>
                         <HomeCard
                             deal={item.deal}
                             img={item.img}

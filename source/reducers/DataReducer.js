@@ -39,8 +39,8 @@ const initialState = {
             isRedeemed: false,
             index: 2,
             type: 'deal',
-            latitude: 40.15,
-            longitude: -88.25
+            latitude: 40.1010528,
+            longitude: -88.2364309
         },
         {
             deal: '\'MEET THE TEAM\' RAFFLE',

@@ -1,9 +1,11 @@
 import React from "react";
-import {StyleSheet, View, Text, TouchableOpacity, ImageBackground, TouchableWithoutFeedback} from "react-native";
+import {StyleSheet, View, Text, TouchableOpacity, ImageBackground, TouchableWithoutFeedback, ScrollView, Dimensions} from "react-native";
 import {connect} from "react-redux";
 import {Icon} from "react-native-elements";
 import { redeem } from '../actions/index.js';
 import { toggle_favorite } from "../actions/index.js";
+import MapView from 'react-native-maps';
+
 
 class HomeDetail extends React.Component {
     static navigationOptions = {
@@ -22,7 +24,9 @@ class HomeDetail extends React.Component {
             isRedeemed: this.props.navigation.state.params.isRedeemed,
             isFavorited: this.props.navigation.state.params.isFavorited,
             index: this.props.navigation.state.params.index,
-            timeRemaining: this.props.navigation.state.params.timeRemaining
+            timeRemaining: this.props.navigation.state.params.timeRemaining,
+            latitude: this.props.navigation.state.params.latitude,
+            longitude: this.props.navigation.state.params.longitude
         }
     }
 
@@ -44,42 +48,60 @@ class HomeDetail extends React.Component {
                         <Text style={{marginTop: 30, marginLeft: 30, fontSize: 24, fontFamily: 'quicksand-bold', color: '#b6b7b6'}}>RETURN</Text>
                     </TouchableOpacity>
                 </View>
-                <View style={{height: 40, backgroundColor: this.state.color, justifyContent: 'center',}}>
-                    <Text style={{paddingLeft: 12, color: '#FFF', fontFamily: 'quicksand-bold', fontSize: 22}}>{this.state.deal}</Text>
-                </View>
-                <ImageBackground
-                    style={{width: '100%', height: 235.294117647, flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'flex-end'}}
-                    source={this.state.img}
-                >
-                    <View style={{marginBottom: 16, marginRight: 16}}>
-                        {this.state.isFavorited ? (
-                            <TouchableWithoutFeedback onPress={() => this.favoriteHelper()}>
-                                <Icon type={'font-awesome'} name={'heart'} color={'red'} size={32} />
-                            </TouchableWithoutFeedback>
+                <ScrollView style={{flex: 1}} showsVerticalScrollIndicator={false}>
+                    <View style={{height: 40, backgroundColor: this.state.color, justifyContent: 'center',}}>
+                        <Text style={{paddingLeft: 12, color: '#FFF', fontFamily: 'quicksand-bold', fontSize: 22}}>{this.state.deal}</Text>
+                    </View>
+                    <ImageBackground
+                        style={{width: '100%', height: 235.294117647, flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'flex-end'}}
+                        source={this.state.img}
+                    >
+                        <View style={{marginBottom: 16, marginRight: 16}}>
+                            {this.state.isFavorited ? (
+                                <TouchableWithoutFeedback onPress={() => this.favoriteHelper()}>
+                                    <Icon type={'font-awesome'} name={'heart'} color={'red'} size={32} />
+                                </TouchableWithoutFeedback>
+                            ) : (
+                                <TouchableWithoutFeedback onPress={() => this.favoriteHelper()}>
+                                    <Icon type={'font-awesome'} name={'heart'} color={'#FFF'} size={32} />
+                                </TouchableWithoutFeedback>
+                            )}
+                        </View>
+                    </ImageBackground>
+                    <View style={{flex: 1}}>
+                        <Text style={{marginLeft: 30, marginTop: 20, fontFamily: 'quicksand-bold', fontSize: 16}}>{this.state.title}</Text>
+                        <Text style={{marginLeft: 30, marginRight: 30, marginTop: 8, fontFamily: 'quicksand-bold', fontSize: 14, color: '#abacab'}}>{this.state.description}</Text>
+                        <View style={{marginTop: 14, flexDirection: 'row', justifyContent: 'center'}}>
+                            <Icon type={'material-community'} name={'timer-sand'} size={18} color={'#d3d4d3'}/>
+                            <Text style={{paddingLeft: 2, fontFamily: 'quicksand-bold', fontSize: 16, color: '#d3d4d3'}}>{this.state.timeRemaining}</Text>
+                        </View>
+                        {this.state.isRedeemed ? (
+                            <View style={{marginTop: 8, backgroundColor: '#AEAEAE', alignSelf: 'center', borderRadius: 5, paddingVertical: 10, paddingHorizontal: 25}}>
+                                <Text style={{color: '#FFF', fontFamily: 'quicksand-bold', fontSize: 16}}>REDEEMED</Text>
+                            </View>
                         ) : (
-                            <TouchableWithoutFeedback onPress={() => this.favoriteHelper()}>
-                                <Icon type={'font-awesome'} name={'heart'} color={'#FFF'} size={32} />
-                            </TouchableWithoutFeedback>
+                            <TouchableOpacity style={{marginTop: 8, backgroundColor: this.state.color, alignSelf: 'center', borderRadius: 5, paddingVertical: 10, paddingHorizontal: 25}} onPress={() => this.redeemHelper()}>
+                            <Text style={{color: '#FFF', fontFamily: 'quicksand-bold', fontSize: 16}}>REDEEM</Text>
+                            </TouchableOpacity>
                         )}
                     </View>
-                </ImageBackground>
-                <View style={{flex: 1}}>
-                    <Text style={{marginLeft: 30, marginTop: 20, fontFamily: 'quicksand-bold', fontSize: 16}}>{this.state.title}</Text>
-                    <Text style={{marginLeft: 30, marginRight: 30, marginTop: 8, fontFamily: 'quicksand-bold', fontSize: 14, color: '#abacab'}}>{this.state.description}</Text>
-                    <View style={{marginTop: 14, flexDirection: 'row', justifyContent: 'center'}}>
-                        <Icon type={'material-community'} name={'timer-sand'} size={18} color={'#d3d4d3'}/>
-                        <Text style={{paddingLeft: 2, fontFamily: 'quicksand-bold', fontSize: 16, color: '#d3d4d3'}}>{this.state.timeRemaining}</Text>
+                    <View style={{flex: 1, height: Dimensions.get('window').width, marginTop: 14, alignItems: 'center', justifyContent: 'center'}}>
+                        <MapView
+                            style={{...StyleSheet.absoluteFillObject}}
+                            region={{latitude: this.state.latitude, longitude: this.state.longitude, latitudeDelta: .05, longitudeDelta: .05}}
+                            showsMyLocationButton={false}
+                            scrollEnabled={false}
+                            pitchEnabled={false}
+                            rotateEnabled={false}
+                            provider={'google'}
+                        >
+                            <MapView.Marker
+                                coordinate={{latitude: this.state.latitude, longitude: this.state.longitude}}
+                                pinColor = {this.state.color}
+                            />
+                        </MapView>
                     </View>
-                    {this.state.isRedeemed ? (
-                        <View style={{marginTop: 8, backgroundColor: '#AEAEAE', alignSelf: 'center', borderRadius: 5, paddingVertical: 10, paddingHorizontal: 25}}>
-                            <Text style={{color: '#FFF', fontFamily: 'quicksand-bold', fontSize: 16}}>REDEEMED</Text>
-                        </View>
-                    ) : (
-                        <TouchableOpacity style={{marginTop: 8, backgroundColor: this.state.color, alignSelf: 'center', borderRadius: 5, paddingVertical: 10, paddingHorizontal: 25}} onPress={() => this.redeemHelper()}>
-                        <Text style={{color: '#FFF', fontFamily: 'quicksand-bold', fontSize: 16}}>REDEEM</Text>
-                        </TouchableOpacity>
-                    )}
-                </View>
+                </ScrollView>
             </View>
         );
     }

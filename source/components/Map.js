@@ -1,8 +1,8 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import MapView from 'react-native-maps';
-import HomeCard from './HomeCard.js';
 import { connect } from 'react-redux';
+import geolib from "geolib";
 
 class Map extends React.Component {
     static navigationOptions = {
@@ -12,13 +12,30 @@ class Map extends React.Component {
 
     constructor() {
         super();
+        this.state = {
+            userLatitude: 0,
+            userLongitude: 0,
+        }
+    }
+
+    componentDidMount(){
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                this.setState({
+                    userLatitude: position.coords.latitude,
+                    userLongitude: position.coords.longitude,
+                });
+            },
+            (error) => this.setState({ error: error.message }),
+            { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
+        );
     }
 
     render() {
         return(
             <View style={styles.container}>
                 <MapView style={styles.map}
-                         region={{latitude: 40.1080007, longitude: -88.2224638, latitudeDelta: .05, longitudeDelta: .05}}
+                         region={{latitude: this.state.userLatitude, longitude: this.state.userLongitude, latitudeDelta: .05, longitudeDelta: .05}}
                          showsMyLocationButton = {true}
                          showsUserLocation={true}
                          provider={'google'}>
@@ -26,10 +43,8 @@ class Map extends React.Component {
                         (
                             <MapView.Marker
                                 coordinate={{latitude: marker.latitude, longitude: marker.longitude}}
-                                title={marker.deal}
-                                description={marker.title}
                                 pinColor = {marker.color}
-                                onPress = {() => this.props.navigation.navigate('HomeDetail', {deal: marker.deal, img: marker.img, title: marker.title, color: marker.color, description: marker.description, isRedeemed: marker.isRedeemed, isFavorited: marker.isFavorited, index: marker.index, timeRemaining: marker.timeRemaining})}/>
+                                onPress = {() => this.props.navigation.navigate('HomeDetail', {deal: marker.deal, img: marker.img, title: marker.title, color: marker.color, description: marker.description, isRedeemed: marker.isRedeemed, isFavorited: marker.isFavorited, index: marker.index, timeRemaining: marker.timeRemaining, latitude: marker.latitude, longitude: marker.longitude})}/>
                         ))}
                 </MapView>
             </View>
