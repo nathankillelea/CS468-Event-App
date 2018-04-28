@@ -85,10 +85,10 @@ const initialState = {
             longitude: -88.2294112
         }
     ],
+    history: []
 };
 
 const DataReducer = (state = initialState, action) => {
-    console.log(action);
     switch (action.type) {
         case 'TOGGLE_FAVORITE':
             return {
@@ -98,11 +98,16 @@ const DataReducer = (state = initialState, action) => {
                 )
             };
         case 'REDEEM':
+            for(let i = 0; i < state.data.length; i++) {
+                if(state.data[i].index === action.index)
+                    state.history.unshift(state.data[i]);
+            }
             return {
                 data: state.data.map(
                     (item) => item.index === action.index ? {...item, isRedeemed: true}
                                                           : item
-                )
+                ),
+                history: state.history
             };
         default:
             return state;

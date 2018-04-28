@@ -1,7 +1,9 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableWithoutFeedback } from 'react-native';
+import { StyleSheet, Text, View, TouchableWithoutFeedback, FlatList } from 'react-native';
+import { List } from 'react-native-elements';
+import {connect} from "react-redux";
 
-export default class Profile extends React.Component {
+class Profile extends React.Component {
     static navigationOptions = {
         title: 'Profile',
         header: null,
@@ -14,6 +16,16 @@ export default class Profile extends React.Component {
             isSettingsPressed: false,
         }
     }
+
+    renderItem = ({ item }) => {
+        return(
+            <View style={{flex: 1, backgroundColor: '#e8e9e8', width: '90%', alignSelf: 'center', borderRadius: 5}}>
+                <Text style={{fontSize: 22, fontFamily: 'quicksand-bold', color: this.props.history.color}}>{this.props.history.deal}</Text>
+                <Text style={{fontSize: 20, fontFamily: 'quicksand-bold', color: '#919291'}}>{this.props.history.title}</Text>
+                <View style={{paddingBottom: 25}}/>
+            </View>
+        );
+    };
 
     historyPressedHandler() {
         this.setState({
@@ -45,6 +57,16 @@ export default class Profile extends React.Component {
                             </View>
                         </TouchableWithoutFeedback>
                     </View>
+                    <List containerStyle={{ borderTopWidth: 0, width: '100%', marginTop: 0, paddingTop: 0 , flex: 1}}>
+                        <FlatList
+                            contentContainerStyle={{ paddingBottom:30 }}
+                            style={{height: '100%', paddingTop: 30}}
+                            data={this.props.history}
+                            showsVerticalScrollIndicator={false}
+                            renderItem={this.renderItem}
+                            keyExtractor={item => item.description}
+                        />
+                    </List>
                 </View>
             );
         }
@@ -76,3 +98,10 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
 });
+
+const mapStateToProps = (state) => ({
+    history: state.data.history,
+    data: state.data.data
+});
+
+export default connect(mapStateToProps)(Profile);
