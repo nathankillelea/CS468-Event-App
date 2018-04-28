@@ -10,6 +10,7 @@ const initialState = {
             isFavorited: false,
             isRedeemed: false,
             index: 0,
+            type: 'deal',
             latitude: 40.0963625,
             longitude: -88.2360834
         },
@@ -23,6 +24,7 @@ const initialState = {
             isFavorited: false,
             isRedeemed: false,
             index: 1,
+            type: 'deal',
             latitude: 40.1079313,
             longitude: -88.2225308
         },
@@ -36,8 +38,51 @@ const initialState = {
             isFavorited: false,
             isRedeemed: false,
             index: 2,
+            type: 'deal',
             latitude: 40.15,
             longitude: -88.25
+        },
+        {
+            deal: '\'MEET THE TEAM\' RAFFLE',
+            title: 'Fighting Illini',
+            description: 'Attend this raffle to win a change to meet the Fighting Illini football team!',
+            timeRemaining: '2 days remaining',
+            img: require('../assets/fightingillinifootball.jpg'),
+            color: '#4B60B4',
+            isFavorited: false,
+            isRedeemed: false,
+            index: 3,
+            type: 'experience',
+            latitude: 40.0991869,
+            longitude: -88.2381443
+        },
+        {
+            deal: 'Cherry Blossoms in Bloom',
+            title: 'Japan House',
+            description: 'The cherry blossoms are in full bloom. Come and see them before they are gone!',
+            timeRemaining: '6 days remaining',
+            img: require('../assets/japanhouse.jpg'),
+            color: '#4B60B4',
+            isFavorited: false,
+            isRedeemed: false,
+            index: 4,
+            type: 'experience',
+            latitude: 40.0927979,
+            longitude: -88.2200977
+        },
+        {
+            deal: 'Yoga & Meditation Session',
+            title: 'YesPlus UIUC',
+            description: 'Come de-stress and energize your body and mind with 1-hour session of mixed yoga and meditation. Yoga mats provided.',
+            timeRemaining: '5 hours',
+            img: require('../assets/yoga.jpg'),
+            color: '#4B60B4',
+            isFavorited: false,
+            isRedeemed: false,
+            index: 5,
+            type: 'experience',
+            latitude: 40.1092101,
+            longitude: -88.2294112
         }
     ],
 };

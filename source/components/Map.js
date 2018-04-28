@@ -27,6 +27,7 @@ class Map extends React.Component {
                             coordinate={{latitude: marker.latitude, longitude: marker.longitude}}
                             title={marker.deal}
                             description={marker.title}
+                            pinColor = {marker.color}
                             onPress = {() => this.props.navigation.navigate('HomeDetail', {deal: marker.deal, img: marker.img, title: marker.title, color: marker.color, description: marker.description, isRedeemed: marker.isRedeemed, isFavorited: marker.isFavorited, index: marker.index})}/>
                     ))}
             </MapView>
