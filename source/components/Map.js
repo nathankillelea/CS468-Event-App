@@ -15,23 +15,25 @@ class Map extends React.Component {
     }
 
     render() {
-        return <View style={styles.container}>
-            <MapView style={styles.map}
-                     region={{latitude: 40.1080007, longitude: -88.2224638, latitudeDelta: .05, longitudeDelta: .05}}
-                     showsMyLocationButton = {true}
-                     showsUserLocation={true}
-                     provider={'google'}>
-                {this.props.data.map(marker =>
-                    (
-                        <MapView.Marker
-                            coordinate={{latitude: marker.latitude, longitude: marker.longitude}}
-                            title={marker.deal}
-                            description={marker.title}
-                            pinColor = {marker.color}
-                            onPress = {() => this.props.navigation.navigate('HomeDetail', {deal: marker.deal, img: marker.img, title: marker.title, color: marker.color, description: marker.description, isRedeemed: marker.isRedeemed, isFavorited: marker.isFavorited, index: marker.index})}/>
-                    ))}
-            </MapView>
-        </View>;
+        return(
+            <View style={styles.container}>
+                <MapView style={styles.map}
+                         region={{latitude: 40.1080007, longitude: -88.2224638, latitudeDelta: .05, longitudeDelta: .05}}
+                         showsMyLocationButton = {true}
+                         showsUserLocation={true}
+                         provider={'google'}>
+                    {this.props.data.map(marker =>
+                        (
+                            <MapView.Marker
+                                coordinate={{latitude: marker.latitude, longitude: marker.longitude}}
+                                title={marker.deal}
+                                description={marker.title}
+                                pinColor = {marker.color}
+                                onPress = {() => this.props.navigation.navigate('HomeDetail', {deal: marker.deal, img: marker.img, title: marker.title, color: marker.color, description: marker.description, isRedeemed: marker.isRedeemed, isFavorited: marker.isFavorited, index: marker.index, timeRemaining: marker.timeRemaining})}/>
+                        ))}
+                </MapView>
+            </View>
+        );
 
     }
 }

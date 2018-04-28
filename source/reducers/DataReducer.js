@@ -16,7 +16,7 @@ const initialState = {
         },
         {
             deal: '10% OFF CONCERT TICKET',
-            title: 'Krannert Center for the Performing Arts',
+            title: 'Krannert Center',
             description: 'Experience the music live at the Krannert Center for the Performing Arts and save 10% off of a concert ticket.',
             timeRemaining: '4 days remaining',
             img: require('../assets/krannert.jpg'),

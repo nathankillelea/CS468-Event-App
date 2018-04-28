@@ -22,6 +22,7 @@ class HomeDetail extends React.Component {
             isRedeemed: this.props.navigation.state.params.isRedeemed,
             isFavorited: this.props.navigation.state.params.isFavorited,
             index: this.props.navigation.state.params.index,
+            timeRemaining: this.props.navigation.state.params.timeRemaining
         }
     }
 
@@ -40,7 +41,7 @@ class HomeDetail extends React.Component {
             <View style={{ backgroundColor: '#FFF', flex: 1 }}>
                 <View style={{height: 65, width: '100%'}}>
                     <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
-                        <Text style={{marginTop: 30, marginLeft: 30, fontSize: 24, fontFamily: 'quicksand-bold'}}>RETURN</Text>
+                        <Text style={{marginTop: 30, marginLeft: 30, fontSize: 24, fontFamily: 'quicksand-bold', color: '#b6b7b6'}}>RETURN</Text>
                     </TouchableOpacity>
                 </View>
                 <View style={{height: 40, backgroundColor: this.state.color, justifyContent: 'center',}}>
@@ -64,13 +65,17 @@ class HomeDetail extends React.Component {
                 </ImageBackground>
                 <View style={{flex: 1}}>
                     <Text style={{marginLeft: 30, marginTop: 20, fontFamily: 'quicksand-bold', fontSize: 16}}>{this.state.title}</Text>
-                    <Text style={{marginLeft: 30, marginRight: 30, marginTop: 8, fontFamily: 'quicksand-bold', fontSize: 14}}>{this.state.description}</Text>
+                    <Text style={{marginLeft: 30, marginRight: 30, marginTop: 8, fontFamily: 'quicksand-bold', fontSize: 14, color: '#abacab'}}>{this.state.description}</Text>
+                    <View style={{marginTop: 14, flexDirection: 'row', justifyContent: 'center'}}>
+                        <Icon type={'material-community'} name={'timer-sand'} size={18} color={'#d3d4d3'}/>
+                        <Text style={{paddingLeft: 2, fontFamily: 'quicksand-bold', fontSize: 16, color: '#d3d4d3'}}>{this.state.timeRemaining}</Text>
+                    </View>
                     {this.state.isRedeemed ? (
-                        <View style={{marginTop: 20, backgroundColor: '#AEAEAE', alignSelf: 'center', borderRadius: 5, paddingVertical: 10, paddingHorizontal: 25}}>
+                        <View style={{marginTop: 8, backgroundColor: '#AEAEAE', alignSelf: 'center', borderRadius: 5, paddingVertical: 10, paddingHorizontal: 25}}>
                             <Text style={{color: '#FFF', fontFamily: 'quicksand-bold', fontSize: 16}}>REDEEMED</Text>
                         </View>
                     ) : (
-                        <TouchableOpacity style={{marginTop: 20, backgroundColor: this.state.color, alignSelf: 'center', borderRadius: 5, paddingVertical: 10, paddingHorizontal: 25}} onPress={() => this.redeemHelper()}>
+                        <TouchableOpacity style={{marginTop: 8, backgroundColor: this.state.color, alignSelf: 'center', borderRadius: 5, paddingVertical: 10, paddingHorizontal: 25}} onPress={() => this.redeemHelper()}>
                         <Text style={{color: '#FFF', fontFamily: 'quicksand-bold', fontSize: 16}}>REDEEM</Text>
                         </TouchableOpacity>
                     )}
