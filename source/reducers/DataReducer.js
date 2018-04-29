@@ -200,6 +200,7 @@ const DataReducer = (state = initialState, action) => {
                     if(state.userPoints >= state.store[i].pointsCost) {
                         state.userPoints -= state.store[i].pointsCost;
                         state.store[i].index = state.data.length;
+                        state.store[i].isRedeemed = true;
                         state.data.push(state.store[i]);
                         state.history.unshift(state.store[i]);
                         state.store.splice(i, 1);
