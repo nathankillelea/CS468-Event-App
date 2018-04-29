@@ -18,6 +18,8 @@ import Map from './source/components/Map.js';
 import Favorites from './source/components/Favorites.js';
 import Profile from './source/components/Profile.js';
 import HomeDetail from './source/components/HomeDetail.js';
+import Store from './source/components/Store.js';
+import StoreDetail from './source/components/StoreDetail.js';
 
 YellowBox.ignoreWarnings([
     'Warning: componentWillMount is deprecated',
@@ -77,6 +79,8 @@ export const Tabs = TabNavigator({
 export const Navigation = StackNavigator({
     Tabs: { screen: Tabs },
     HomeDetail: { screen: HomeDetail },
+    Store: { screen: Store },
+    StoreDetail: { screen: StoreDetail},
 }, {
     headerMode: 'screen'
 });
@@ -104,6 +108,9 @@ export default class App extends React.Component {
             require('./source/assets/japanhouse.jpg'),
             require('./source/assets/krannert.jpg'),
             require('./source/assets/yoga.jpg'),
+            require('./source/assets/seasonticket.jpg'),
+            require('./source/assets/megaphonix.jpg'),
+            require('./source/assets/illusionists.jpg'),
         ]);
         this.setState({ appLoading: false});
     }

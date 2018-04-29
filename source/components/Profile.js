@@ -22,7 +22,11 @@ class Profile extends React.Component {
             <View>
                 <View style={{flex:1, flexDirection: 'row', alignItems: 'center'}}>
                     <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center'}}>
-                        <Text style={{fontFamily: 'quicksand-bold', fontSize: 18, color: '#c9cac9'}}>+{item.points}</Text>
+                        {(item.fromStore) ? (
+                            <Text style={{fontFamily: 'quicksand-bold', fontSize: 18, color: '#c9cac9'}}>-{item.pointsCost}</Text>
+                        ) : (
+                            <Text style={{fontFamily: 'quicksand-bold', fontSize: 18, color: '#c9cac9'}}>+{item.points}</Text>
+                        )}
                     </View>
                     <View style={{flex: 4, flexDirection: 'row', justifyContent: 'flex-end'}}>
                         <View style={{flex: 1, backgroundColor: '#e8e9e8', width: '100%', alignSelf: 'center', borderRadius: 10, marginRight: 20}}>
@@ -51,7 +55,6 @@ class Profile extends React.Component {
     }
 
     render() {
-        console.log('user points: ' + this.props.userPoints);
         if(this.state.isHistoryPressed) {
             return(
                 <View style={{backgroundColor: '#FFF', flex: 1}}>
@@ -67,12 +70,12 @@ class Profile extends React.Component {
                             </View>
                         </TouchableWithoutFeedback>
                     </View>
-                    <View style={{flexDirection: 'row'}}>
+                    <View style={{flexDirection: 'row', marginBottom: 30,}}>
                         <View style={{marginTop: 30, flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
                             <Text style={{fontSize: 32, fontFamily: 'quicksand-bold'}}>{this.props.userPoints} points</Text>
                         </View>
                         <View style={{marginTop: 30, flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
-                            <TouchableOpacity style={{alignSelf: 'center', borderRadius: 5, borderWidth: 1, paddingVertical: 10, paddingHorizontal: 15, borderColor: '#4B60B4'}}>
+                            <TouchableOpacity style={{alignSelf: 'center', borderRadius: 5, borderWidth: 1, paddingVertical: 10, paddingHorizontal: 15, borderColor: '#4B60B4'}} onPress={() => this.props.navigation.navigate('Store')}>
                                 <Text style={{fontFamily: 'quicksand-bold', fontSize: 16, color: '#4B60B4'}}>REDEEM</Text>
                             </TouchableOpacity>
                         </View>
@@ -104,6 +107,11 @@ class Profile extends React.Component {
                                 <Text style={{marginRight: 50, fontSize: 24, fontFamily: 'quicksand-bold'}}>SETTINGS</Text>
                             </View>
                         </TouchableWithoutFeedback>
+                    </View>
+                    <View style={{flex: 1, alignSelf: 'center', justifyContent: 'center'}}>
+                        <TouchableOpacity style={{alignSelf: 'center', justifyContent: 'center', borderRadius: 5, borderWidth: 1, paddingVertical: 10, paddingHorizontal: 15, borderColor: '#4B60B4'}}>
+                            <Text style={{fontFamily: 'quicksand-bold', fontSize: 16, color: '#4B60B4'}}>LOGOUT</Text>
+                        </TouchableOpacity>
                     </View>
                 </View>
             );

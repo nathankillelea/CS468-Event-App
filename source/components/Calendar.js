@@ -54,6 +54,7 @@ class Calendar extends React.Component {
             );
         }
     };
+
     render() {
         return(
             <View style={{backgroundColor: '#FFF', flex: 1}}>

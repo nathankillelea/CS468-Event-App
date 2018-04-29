@@ -64,7 +64,6 @@ class HomeDetail extends React.Component {
                                 <Text style={{paddingRight: 12, color: '#8190cb', fontFamily: 'quicksand-bold', fontSize: 22}}>+{this.state.points}</Text>
                             </View>
                         )}
-
                     </View>
                     <ImageBackground
                         style={{width: '100%', height: 235.294117647, flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'flex-end'}}

@@ -11,3 +11,10 @@ export function redeem(index) {
         index
     }
 }
+
+export function redeem_from_store(index) {
+    return {
+        type: 'REDEEM_FROM_STORE',
+        index
+    }
+}
