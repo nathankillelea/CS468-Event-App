@@ -4,6 +4,7 @@ import { List, Icon } from 'react-native-elements';
 import HomeCard from './HomeCard.js';
 import { connect } from 'react-redux';
 import geolib from "geolib";
+import {toggle_favorite} from "../actions";
 
 class Home extends React.Component {
     static navigationOptions = {
@@ -44,21 +45,42 @@ class Home extends React.Component {
         dist = dist * 0.000621371192;
         dist = Math.round( dist * 10 ) / 10;
         if(this.state.isSearchPressed) {
-            if(item.deal.toLowerCase().includes(this.state.query.toLowerCase()) || item.title.toLowerCase().includes(this.state.query.toLowerCase())) {
-                return(
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('HomeDetail', {deal: item.deal, img: item.img, title: item.title, color: item.color, description: item.description, isRedeemed: item.isRedeemed, isFavorited: item.isFavorited, index: item.index, timeRemaining: item.timeRemaining, latitude: item.latitude, longitude: item.longitude, points: item.points, type: item.type})}>
-                        <HomeCard
-                            deal={item.deal}
-                            img={item.img}
-                            title={item.title}
-                            color={item.color}
-                            isFavorited={item.isFavorited}
-                            index={item.index}
-                            distance={dist}
-                            timeRemaining={item.timeRemaining}
-                        />
-                    </TouchableOpacity>
-                );
+            if(this.state.isDealPressed) {
+                if((item.deal.toLowerCase().includes(this.state.query.toLowerCase()) || item.title.toLowerCase().includes(this.state.query.toLowerCase())) && (item.type === 'deal')) {
+                    console.log(item.type);
+                    return(
+                        <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('HomeDetail', {deal: item.deal, img: item.img, title: item.title, color: item.color, description: item.description, isRedeemed: item.isRedeemed, isFavorited: item.isFavorited, index: item.index, timeRemaining: item.timeRemaining, latitude: item.latitude, longitude: item.longitude, points: item.points, type: item.type})}>
+                            <HomeCard
+                                deal={item.deal}
+                                img={item.img}
+                                title={item.title}
+                                color={item.color}
+                                isFavorited={item.isFavorited}
+                                index={item.index}
+                                distance={dist}
+                                timeRemaining={item.timeRemaining}
+                            />
+                        </TouchableOpacity>
+                    );
+                }
+            }
+            else if(this.state.isExperiencesPressed) {
+                if((item.deal.toLowerCase().includes(this.state.query.toLowerCase()) || item.title.toLowerCase().includes(this.state.query.toLowerCase())) && (item.type === 'experience')) {
+                    return(
+                        <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('HomeDetail', {deal: item.deal, img: item.img, title: item.title, color: item.color, description: item.description, isRedeemed: item.isRedeemed, isFavorited: item.isFavorited, index: item.index, timeRemaining: item.timeRemaining, latitude: item.latitude, longitude: item.longitude, points: item.points, type: item.type})}>
+                            <HomeCard
+                                deal={item.deal}
+                                img={item.img}
+                                title={item.title}
+                                color={item.color}
+                                isFavorited={item.isFavorited}
+                                index={item.index}
+                                distance={dist}
+                                timeRemaining={item.timeRemaining}
+                            />
+                        </TouchableOpacity>
+                    );
+                }
             }
         }
         else if(this.state.isDealPressed) {
@@ -125,20 +147,37 @@ class Home extends React.Component {
         if(this.state.isSearchPressed) {
             return(
                 <View style={{backgroundColor: '#FFF', flex: 1}}>
-                    <View style={{height: 65, borderBottomWidth: 4, borderBottomColor: '#dbdff0', width: '100%', flexDirection: 'row'}}>
-                        <View style={{marginTop: 20, flex: 1, justifyContent: 'flex-start', flexDirection: 'row', marginLeft: 25}}>
-                            <Icon type={'feather'} name={'search'} color={'#b6b7b6'}/>
-                            <TextInput
-                                placeholder={'SEARCH'}
-                                placeholderTextColor={'#b6b7b6'}
-                                onChangeText={(input) => this.setState({ query: input })}
-                                style={{ fontFamily: 'quicksand-bold', fontSize: 24, color: '#b6b7b6', width: '80%', paddingLeft: 4 }}
-                            />
-                            <TouchableWithoutFeedback onPress={() => this.setState({ isSearchPressed: false, query: '' })}>
-                                <Icon type={'feather'} name={'x'} color={'#b6b7b6'} />
-                            </TouchableWithoutFeedback>
+                    {this.state.isDealPressed ? (
+                        <View style={{height: 65, borderBottomWidth: 4, borderBottomColor: '#E5461F', width: '100%', flexDirection: 'row'}}>
+                            <View style={{marginTop: 20, flex: 1, justifyContent: 'flex-start', flexDirection: 'row', marginLeft: 25}}>
+                                <Icon type={'feather'} name={'search'} color={'#b6b7b6'}/>
+                                <TextInput
+                                    placeholder={'SEARCH'}
+                                    placeholderTextColor={'#b6b7b6'}
+                                    onChangeText={(input) => this.setState({ query: input })}
+                                    style={{ fontFamily: 'quicksand-bold', fontSize: 24, color: '#b6b7b6', width: '80%', paddingLeft: 4 }}
+                                />
+                                <TouchableWithoutFeedback onPress={() => this.setState({ isSearchPressed: false, query: '' })}>
+                                    <Icon type={'feather'} name={'x'} color={'#b6b7b6'} />
+                                </TouchableWithoutFeedback>
+                            </View>
                         </View>
-                    </View>
+                    ) : (
+                        <View style={{height: 65, borderBottomWidth: 4, borderBottomColor: '#4B60B4', width: '100%', flexDirection: 'row'}}>
+                            <View style={{marginTop: 20, flex: 1, justifyContent: 'flex-start', flexDirection: 'row', marginLeft: 25}}>
+                                <Icon type={'feather'} name={'search'} color={'#b6b7b6'}/>
+                                <TextInput
+                                    placeholder={'SEARCH'}
+                                    placeholderTextColor={'#b6b7b6'}
+                                    onChangeText={(input) => this.setState({ query: input })}
+                                    style={{ fontFamily: 'quicksand-bold', fontSize: 24, color: '#b6b7b6', width: '80%', paddingLeft: 4 }}
+                                />
+                                <TouchableWithoutFeedback onPress={() => this.setState({ isSearchPressed: false, query: '' })}>
+                                    <Icon type={'feather'} name={'x'} color={'#b6b7b6'} />
+                                </TouchableWithoutFeedback>
+                            </View>
+                        </View>
+                    )}
                     <List containerStyle={{ borderTopWidth: 0, width: '100%', marginTop: 0, paddingTop: 0 , flex: 1}}>
                         <FlatList
                             contentContainerStyle={{ paddingBottom:30 }}
