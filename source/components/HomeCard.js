@@ -33,7 +33,7 @@ class HomeCard extends React.Component {
                     <View style={{backgroundColor: this.props.color, height: 30, justifyContent: 'center',}} >
                         <Text style={{paddingLeft: 12, color: '#FFF', fontFamily: 'quicksand-bold', fontSize: 22}}>{this.props.deal}</Text>
                     </View>
-                    <View style={{height: 50, backgroundColor: '#F9F9F9', borderBottomLeftRadius: 10, borderBottomRightRadius: 10, borderBottomWidth: 2, borderBottomColor: '#e0e0e0', width: '100%'}}>
+                    <View style={{height: 50, backgroundColor: '#F9F9F9', borderBottomLeftRadius: 10, borderBottomRightRadius: 10, borderBottomWidth: 1, borderBottomColor: '#e0e0e0', borderRightColor: '#e0e0e0', borderRightWidth: 1, borderLeftColor: '#e0e0e0', borderLeftWidth: 1, width: '100%'}}>
                         <View style={{flexDirection: 'row'}}>
                             <Text style={{paddingLeft: 12, paddingTop: 6, fontFamily: 'quicksand-bold', fontSize: 16, color: '#abacab'}}>{this.props.title}</Text>
                             <View style={{flex: 1, flexDirection: 'row', justifyContent: 'flex-end'}}>

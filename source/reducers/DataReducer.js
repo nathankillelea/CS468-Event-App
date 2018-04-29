@@ -12,7 +12,8 @@ const initialState = {
             index: 0,
             type: 'deal',
             latitude: 40.0963625,
-            longitude: -88.2360834
+            longitude: -88.2360834,
+            points: 50,
         },
         {
             deal: '10% OFF CONCERT TICKET',
@@ -26,7 +27,8 @@ const initialState = {
             index: 1,
             type: 'deal',
             latitude: 40.1079313,
-            longitude: -88.2225308
+            longitude: -88.2225308,
+            points: 25,
         },
         {
             deal: 'FREE COOKING CLASS',
@@ -40,7 +42,8 @@ const initialState = {
             index: 2,
             type: 'deal',
             latitude: 40.1010528,
-            longitude: -88.2364309
+            longitude: -88.2364309,
+            points: 10,
         },
         {
             deal: '\'MEET THE TEAM\' RAFFLE',
@@ -54,7 +57,8 @@ const initialState = {
             index: 3,
             type: 'experience',
             latitude: 40.0991869,
-            longitude: -88.2381443
+            longitude: -88.2381443,
+            points: 10,
         },
         {
             deal: 'Cherry Blossoms in Bloom',
@@ -68,7 +72,8 @@ const initialState = {
             index: 4,
             type: 'experience',
             latitude: 40.0927979,
-            longitude: -88.2200977
+            longitude: -88.2200977,
+            points: 5,
         },
         {
             deal: 'Yoga & Meditation Session',
@@ -82,10 +87,12 @@ const initialState = {
             index: 5,
             type: 'experience',
             latitude: 40.1092101,
-            longitude: -88.2294112
+            longitude: -88.2294112,
+            points: 10,
         }
     ],
-    history: []
+    history: [],
+    userPoints: 0
 };
 
 const DataReducer = (state = initialState, action) => {
@@ -95,19 +102,27 @@ const DataReducer = (state = initialState, action) => {
                 data: state.data.map(
                     (item) => item.index === action.index ? {...item, isFavorited: !item.isFavorited}
                                                           : item
-                )
+                ),
+                history: state.history.map(
+                    (item) => item.index === action.index ? {...item, isFavorited: !item.isFavorited}
+                        : item
+                ),
+                userPoints: state.userPoints,
             };
         case 'REDEEM':
             for(let i = 0; i < state.data.length; i++) {
-                if(state.data[i].index === action.index)
+                if(state.data[i].index === action.index) {
                     state.history.unshift(state.data[i]);
+                    state.userPoints += state.data[i].points;
+                }
             }
             return {
                 data: state.data.map(
                     (item) => item.index === action.index ? {...item, isRedeemed: true}
                                                           : item
                 ),
-                history: state.history
+                history: state.history,
+                userPoints: state.userPoints,
             };
         default:
             return state;

@@ -26,7 +26,9 @@ class HomeDetail extends React.Component {
             index: this.props.navigation.state.params.index,
             timeRemaining: this.props.navigation.state.params.timeRemaining,
             latitude: this.props.navigation.state.params.latitude,
-            longitude: this.props.navigation.state.params.longitude
+            longitude: this.props.navigation.state.params.longitude,
+            points: this.props.navigation.state.params.points,
+            type: this.props.navigation.state.params.type,
         }
     }
 
@@ -49,8 +51,20 @@ class HomeDetail extends React.Component {
                     </TouchableOpacity>
                 </View>
                 <ScrollView style={{flex: 1}} showsVerticalScrollIndicator={false}>
-                    <View style={{height: 40, backgroundColor: this.state.color, justifyContent: 'center',}}>
-                        <Text style={{paddingLeft: 12, color: '#FFF', fontFamily: 'quicksand-bold', fontSize: 22}}>{this.state.deal}</Text>
+                    <View style={{flex: 1, height: 40, backgroundColor: this.state.color, flexDirection: 'row', alignItems: 'center'}}>
+                        <View style={{flex: 3, flexDirection: 'row', justifyContent: 'flex-start'}}>
+                            <Text style={{paddingLeft: 12, color: '#FFF', fontFamily: 'quicksand-bold', fontSize: 22}}>{this.state.deal}</Text>
+                        </View>
+                        {(this.state.type === 'deal') ? (
+                            <View style={{flex: 1, flexDirection: 'row', justifyContent: 'flex-end'}}>
+                                <Text style={{paddingRight: 12, color: '#ed7f64', fontFamily: 'quicksand-bold', fontSize: 22}}>+{this.state.points}</Text>
+                            </View>
+                        ) : (
+                            <View style={{flex: 1, flexDirection: 'row', justifyContent: 'flex-end'}}>
+                                <Text style={{paddingRight: 12, color: '#8190cb', fontFamily: 'quicksand-bold', fontSize: 22}}>+{this.state.points}</Text>
+                            </View>
+                        )}
+
                     </View>
                     <ImageBackground
                         style={{width: '100%', height: 235.294117647, flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'flex-end'}}
@@ -81,7 +95,7 @@ class HomeDetail extends React.Component {
                             </View>
                         ) : (
                             <TouchableOpacity style={{marginTop: 8, backgroundColor: this.state.color, alignSelf: 'center', borderRadius: 5, paddingVertical: 10, paddingHorizontal: 25}} onPress={() => this.redeemHelper()}>
-                            <Text style={{color: '#FFF', fontFamily: 'quicksand-bold', fontSize: 16}}>REDEEM</Text>
+                                <Text style={{color: '#FFF', fontFamily: 'quicksand-bold', fontSize: 16}}>REDEEM</Text>
                             </TouchableOpacity>
                         )}
                     </View>

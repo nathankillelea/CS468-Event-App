@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableWithoutFeedback, FlatList } from 'react-native';
+import { StyleSheet, Text, View, TouchableWithoutFeedback, FlatList, TouchableOpacity } from 'react-native';
 import { List } from 'react-native-elements';
 import {connect} from "react-redux";
 
@@ -19,10 +19,19 @@ class Profile extends React.Component {
 
     renderItem = ({ item }) => {
         return(
-            <View style={{flex: 1, backgroundColor: '#e8e9e8', width: '90%', alignSelf: 'center', borderRadius: 5}}>
-                <Text style={{fontSize: 22, fontFamily: 'quicksand-bold', color: this.props.history.color}}>{this.props.history.deal}</Text>
-                <Text style={{fontSize: 20, fontFamily: 'quicksand-bold', color: '#919291'}}>{this.props.history.title}</Text>
-                <View style={{paddingBottom: 25}}/>
+            <View>
+                <View style={{flex:1, flexDirection: 'row', alignItems: 'center'}}>
+                    <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center'}}>
+                        <Text style={{fontFamily: 'quicksand-bold', fontSize: 18, color: '#c9cac9'}}>+{item.points}</Text>
+                    </View>
+                    <View style={{flex: 4, flexDirection: 'row', justifyContent: 'flex-end'}}>
+                        <View style={{flex: 1, backgroundColor: '#e8e9e8', width: '100%', alignSelf: 'center', borderRadius: 10, marginRight: 20}}>
+                            <Text style={{paddingLeft: 12, paddingTop: 12, fontSize: 22, fontFamily: 'quicksand-bold', color: item.color}}>{item.deal}</Text>
+                            <Text style={{paddingLeft: 12, paddingTop: 4, paddingBottom: 12, fontSize: 20, fontFamily: 'quicksand-bold', color: '#919291'}}>{item.title}</Text>
+                        </View>
+                    </View>
+                </View>
+                <View style={{height: 25, backgroundColor: '#FFF'}}/>
             </View>
         );
     };
@@ -42,6 +51,7 @@ class Profile extends React.Component {
     }
 
     render() {
+        console.log('user points: ' + this.props.userPoints);
         if(this.state.isHistoryPressed) {
             return(
                 <View style={{backgroundColor: '#FFF', flex: 1}}>
@@ -56,6 +66,16 @@ class Profile extends React.Component {
                                 <Text style={{marginRight: 50, fontSize: 24, fontFamily: 'quicksand-bold'}}>SETTINGS</Text>
                             </View>
                         </TouchableWithoutFeedback>
+                    </View>
+                    <View style={{flexDirection: 'row'}}>
+                        <View style={{marginTop: 30, flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
+                            <Text style={{fontSize: 32, fontFamily: 'quicksand-bold'}}>{this.props.userPoints} points</Text>
+                        </View>
+                        <View style={{marginTop: 30, flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
+                            <TouchableOpacity style={{alignSelf: 'center', borderRadius: 5, borderWidth: 1, paddingVertical: 10, paddingHorizontal: 15, borderColor: '#4B60B4'}}>
+                                <Text style={{fontFamily: 'quicksand-bold', fontSize: 16, color: '#4B60B4'}}>REDEEM</Text>
+                            </TouchableOpacity>
+                        </View>
                     </View>
                     <List containerStyle={{ borderTopWidth: 0, width: '100%', marginTop: 0, paddingTop: 0 , flex: 1}}>
                         <FlatList
@@ -101,7 +121,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => ({
     history: state.data.history,
-    data: state.data.data
+    userPoints: state.data.userPoints
 });
 
 export default connect(mapStateToProps)(Profile);
