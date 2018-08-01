@@ -2,6 +2,9 @@
 
 ![Deal Image](https://i.imgur.com/fW0H62Zl.png)
 
+## Deal - Detail
+![Deal Detail Image](https://i.imgur.com/hOtqfICl.png)
+
 ## Home - Experiences
 
 ![Experience Image](https://i.imgur.com/Qtq89Kwl.png)
