@@ -1,4 +1,3 @@
-import React from "react";
 import {StyleSheet, View, Text, TouchableOpacity, ImageBackground, TouchableWithoutFeedback, ScrollView, Dimensions} from "react-native";
 import {connect} from "react-redux";
 import {Icon} from "react-native-elements";
