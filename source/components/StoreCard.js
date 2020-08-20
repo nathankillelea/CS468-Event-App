@@ -1,11 +1,9 @@
 import React from 'react';
 import { StyleSheet, Text, View, ImageBackground, TouchableWithoutFeedback } from 'react-native';
 import { Icon } from 'react-native-elements';
-
-import { toggle_favorite } from '../actions/index.js';
 import { connect } from 'react-redux';
 
-class HomeCard extends React.Component {
+class StoreCard extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -18,17 +16,6 @@ class HomeCard extends React.Component {
             style={{width: '100%', height: 200, flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'flex-start'}}
             source={this.props.img}
           >
-            <View style={{marginTop: 16, marginRight: 16}}>
-              {this.props.isFavorited ? (
-                <TouchableWithoutFeedback onPress={() => this.props.dispatch(toggle_favorite(this.props.index))}>
-                  <Icon type={'font-awesome'} name={'heart'} color={'red'} size={32} />
-                </TouchableWithoutFeedback>
-              ) : (
-                <TouchableWithoutFeedback onPress={() => this.props.dispatch(toggle_favorite(this.props.index))}>
-                  <Icon type={'font-awesome'} name={'heart'} color={'#FFF'} size={32} />
-                </TouchableWithoutFeedback>
-              )}
-            </View>
           </ImageBackground>
           <View style={{backgroundColor: this.props.color, height: 30, justifyContent: 'center',}} >
             <Text style={{paddingLeft: 12, color: '#FFF', fontFamily: 'quicksand-bold', fontSize: 22}}>{this.props.deal}</Text>
@@ -60,4 +47,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default connect()(HomeCard);
+export default connect()(StoreCard);

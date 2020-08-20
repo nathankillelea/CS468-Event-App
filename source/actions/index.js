@@ -1,18 +1,20 @@
-// not working??
-export function favorite() {
-    return(dispatch) => {
-        dispatch({
-            type: 'FAVORITE',
-            isFavorited: true
-        })
-    }
+export function toggle_favorite(index) {
+  return {
+    type: 'TOGGLE_FAVORITE',
+    index
+  }
 }
 
-export function unfavorite() {
-    return(dispatch) => {
-        dispatch({
-            type: 'UNFAVORITE',
-            isFavorited: false
-        })
-    }
+export function redeem(index) {
+  return {
+    type: 'REDEEM',
+    index
+  }
+}
+
+export function redeem_from_store(index) {
+  return {
+    type: 'REDEEM_FROM_STORE',
+    index
+  }
 }

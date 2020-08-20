@@ -1,11 +1,12 @@
 import { combineReducers } from 'redux';
 
-import FavoriteReducer from './FavoriteReducer.js';
+import DataReducer from './DataReducer.js';
+
 /**
  * The AppReducer combines all of the other reducers together.
  */
 const AppReducer = combineReducers({
-    favorite: FavoriteReducer,
+  data: DataReducer,
 });
 
 export default AppReducer;
