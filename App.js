@@ -1,14 +1,13 @@
-import React from 'react';
-import { StyleSheet, Text, View, AppRegistry, ActivityIndicator } from 'react-native';
-import { TabNavigator, StackNavigator, TabBarBottom } from 'react-navigation';
-import { FontAwesome } from '@expo/vector-icons';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { Feather } from '@expo/vector-icons';
+navigator.geolocation = require('@react-native-community/geolocation');
 
-import { Font, Asset } from 'expo';
-import { YellowBox } from 'react-native';
-import { Provider } from 'react-redux';
-import { createStore } from 'redux';
+import React from 'react';
+import {StyleSheet, View, ActivityIndicator, Text} from 'react-native';
+import {NavigationContainer} from '@react-navigation/native';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {createStackNavigator} from '@react-navigation/stack';
+import FontAwesome from 'react-native-vector-icons/dist/FontAwesome';
+import {Provider} from 'react-redux';
+import {createStore} from 'redux';
 
 import AppReducer from './source/reducers/AppReducer.js';
 
@@ -21,81 +20,78 @@ import HomeDetail from './source/components/HomeDetail.js';
 import Store from './source/components/Store.js';
 import StoreDetail from './source/components/StoreDetail.js';
 
-YellowBox.ignoreWarnings([
-  'Warning: componentWillMount is deprecated',
-  'Warning: componentWillReceiveProps is deprecated',
-  'Warning: componentWillUpdate is deprecated',
-  'Warning: Each child in an array or iterator should have a unique',
-  'Remote debugger is in a background tab'
-]);
-
 /**
  * Creates a tab bar navigator for easy navigation between screens.
  */
-export const Tabs = TabNavigator({
-  Home: {
-    screen: Home,
-    navigationOptions: {
-      tabBarIcon: ({ tintColor }) => (<FontAwesome name="home" size={35} color={tintColor} />)
-    }
-  },
-  Calendar: {
-    screen: Calendar,
-    navigationOptions: {
-      tabBarIcon: ({ tintColor }) => (<FontAwesome name="calendar-o" size={35} color={tintColor} />)
-    }
-  },
-  Map: {
-    screen: Map,
-    navigationOptions: {
-      tabBarIcon: ({ tintColor }) => (<FontAwesome name="map-marker" size={35} color={tintColor} />)
-    }
-  },
-  Favorites: {
-    screen: Favorites,
-    navigationOptions: {
-      tabBarIcon: ({ tintColor }) => (<FontAwesome name="heart-o" size={35} color={tintColor} />)
-    }
-  },
-  Profile: {
-    screen: Profile,
-    navigationOptions: {
-      tabBarIcon: ({ tintColor }) => (<FontAwesome name="user-o" size={35} color={tintColor} />)
-    }
-  }
-}, {
-  tabBarComponent: TabBarBottom,
-  tabBarPosition: 'bottom',
-  tabBarOptions: {
-    activeTintColor: '#E5461F',
-    inactiveTintColor: '#C8C9C8',
-    showLabel: false,
-    style: {
-      borderTopWidth: 0,
-    }
-  }
-});
+const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator();
 
-export const Navigation = StackNavigator({
-  Tabs: { screen: Tabs },
-  HomeDetail: { screen: HomeDetail },
-  Store: { screen: Store },
-  StoreDetail: { screen: StoreDetail},
-}, {
-  headerMode: 'screen'
-});
+function Tabs() {
+  return (
+    <Tab.Navigator
+      screenOptions={({route}) => ({
+        tabBarIcon: ({focused, color, size}) => {
+          let iconName;
 
-export default class App extends React.Component {
+          if (route.name === 'Home') {
+            iconName = 'home';
+          }
+          else if (route.name === 'Calendar') {
+            iconName = 'calendar-o';
+          }
+          else if (route.name === 'Map') {
+            iconName = 'map-marker';
+          }
+          else if (route.name === 'Favorites') {
+            iconName = 'heart-o';
+          }
+          else if (route.name === 'Profile') {
+            iconName = 'user-o';
+          }
+
+          return <FontAwesome name={iconName} size={35} color={color} />;
+        },
+      })}
+      tabBarOptions={{
+        activeTintColor: '#E5461F',
+        inactiveTintColor: '#C8C9C8',
+        showLabel: false,
+        style: {
+          borderTopWidth: 0,
+        },
+      }}>
+      <Tab.Screen name="Home" component={Home} options={{title: 'Home'}} />
+      <Tab.Screen
+        name="Calendar"
+        component={Calendar}
+        options={{title: 'Calendar'}}
+      />
+      <Tab.Screen name="Map" component={Map} options={{title: 'Map'}} />
+      <Tab.Screen
+        name="Favorites"
+        component={Favorites}
+        options={{title: 'Favorites'}}
+      />
+      <Tab.Screen
+        name="Profile"
+        component={Profile}
+        options={{title: 'Profile'}}
+      />
+    </Tab.Navigator>
+  );
+}
+
+class App extends React.Component {
   constructor() {
     super();
     this.state = {
       appLoading: true,
-    }
+    };
   }
 
-  async componentDidMount() {
+  /*async componentDidMount() {
     await Font.loadAsync({
-      'quicksand-bold': require('./source/assets/fonts/Quicksand-Bold.ttf'),
+      'Quicksand-Bold': require('./source/assets/fonts/Quicksand-Bold.ttf'),
       'Intro': require('./source/assets/fonts/Intro.ttf'),
       ...MaterialCommunityIcons.font,
       ...Feather.font,
@@ -113,21 +109,43 @@ export default class App extends React.Component {
       require('./source/assets/illusionists.jpg'),
     ]);
     this.setState({ appLoading: false});
-  }
+  }*/
 
   store = createStore(AppReducer);
 
   render() {
-    if(this.state.appLoading === true) {
-      return(
+    /*if (this.state.appLoading === true) {
+      return (
         <View style={styles.container}>
           <ActivityIndicator />
         </View>
       );
-    }
+    }*/
     return (
       <Provider store={this.store}>
-        <Navigation />
+        <NavigationContainer>
+          <Stack.Navigator
+            initialRouteName="Home"
+            headerMode="screen"
+            screenOptions={{headerShown: false}}>
+            <Stack.Screen name="Tabs" component={Tabs} />
+            <Stack.Screen
+              name="HomeDetail"
+              component={HomeDetail}
+              options={{title: 'HomeDetail'}}
+            />
+            <Stack.Screen
+              name="Store"
+              component={Store}
+              options={{title: 'Store'}}
+            />
+            <Stack.Screen
+              name="StoreDetail"
+              component={StoreDetail}
+              options={{title: 'StoreDetail'}}
+            />
+          </Stack.Navigator>
+        </NavigationContainer>
       </Provider>
     );
   }
@@ -135,11 +153,11 @@ export default class App extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-  flex: 1,
-  backgroundColor: '#fff',
-  alignItems: 'center',
-  justifyContent: 'center',
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
 
-AppRegistry.registerComponent('App', () => App);
+export default App;

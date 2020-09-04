@@ -3,10 +3,11 @@ const initialState = {
     {
       deal: '$5 OFF STUDENT TICKET',
       title: 'Fighting Illini Athletics',
-      description: 'Support your team and save $5 on a student ticket to any game this month!',
+      description:
+        'Support your team and save $5 on a student ticket to any game this month!',
       timeRemaining: '2h remaining',
       date: '4/30',
-      img: require('../assets/fightingillinibasketball.jpg'),
+      img: require('../../assets/fightingillinibasketball.jpg'),
       color: '#E5461F',
       isFavorited: false,
       isRedeemed: false,
@@ -20,10 +21,11 @@ const initialState = {
     {
       deal: 'Yoga & Meditation Session',
       title: 'YesPlus UIUC',
-      description: 'Come de-stress and energize your body and mind with 1-hour session of mixed yoga and meditation. Yoga mats provided.',
+      description:
+        'Come de-stress and energize your body and mind with 1-hour session of mixed yoga and meditation. Yoga mats provided.',
       timeRemaining: '5 hours',
       date: '4/30',
-      img: require('../assets/yoga.jpg'),
+      img: require('../../assets/yoga.jpg'),
       color: '#4B60B4',
       isFavorited: false,
       isRedeemed: false,
@@ -35,12 +37,13 @@ const initialState = {
       fromStore: false,
     },
     {
-      deal: '\'MEET THE TEAM\' RAFFLE',
+      deal: "'MEET THE TEAM' RAFFLE",
       title: 'Fighting Illini',
-      description: 'Attend this raffle to win a change to meet the Fighting Illini football team!',
+      description:
+        'Attend this raffle to win a change to meet the Fighting Illini football team!',
       timeRemaining: '2 days remaining',
       date: '5/2',
-      img: require('../assets/fightingillinifootball.jpg'),
+      img: require('../../assets/fightingillinifootball.jpg'),
       color: '#4B60B4',
       isFavorited: false,
       isRedeemed: false,
@@ -54,10 +57,11 @@ const initialState = {
     {
       deal: '10% OFF CONCERT TICKET',
       title: 'Krannert Center',
-      description: 'Experience the music live at the Krannert Center for the Performing Arts and save 10% off of a concert ticket.',
+      description:
+        'Experience the music live at the Krannert Center for the Performing Arts and save 10% off of a concert ticket.',
       timeRemaining: '4 days remaining',
       date: '5/4',
-      img: require('../assets/krannert.jpg'),
+      img: require('../../assets/krannert.jpg'),
       color: '#E5461F',
       isFavorited: false,
       isRedeemed: false,
@@ -71,10 +75,11 @@ const initialState = {
     {
       deal: 'FREE COOKING CLASS',
       title: 'ARC Instructional Kitchen',
-      description: 'Learn how to cook through a free course at the ARC Instructional Kitchen.',
+      description:
+        'Learn how to cook through a free course at the ARC Instructional Kitchen.',
       timeRemaining: '5 days remaining',
       date: '5/5',
-      img: require('../assets/cooking.jpg'),
+      img: require('../../assets/cooking.jpg'),
       color: '#E5461F',
       isFavorited: false,
       isRedeemed: false,
@@ -88,10 +93,11 @@ const initialState = {
     {
       deal: 'Cherry Blossoms in Bloom',
       title: 'Japan House',
-      description: 'The cherry blossoms are in full bloom. Come and see them before they are gone!',
+      description:
+        'The cherry blossoms are in full bloom. Come and see them before they are gone!',
       timeRemaining: '6 days remaining',
       date: '5/6',
-      img: require('../assets/japanhouse.jpg'),
+      img: require('../../assets/japanhouse.jpg'),
       color: '#4B60B4',
       isFavorited: false,
       isRedeemed: false,
@@ -109,10 +115,11 @@ const initialState = {
     {
       deal: '50% OFF DJ TICKET',
       title: 'The Canopy Club',
-      description: 'Megaphonix headlining The Canopy Club! Megaphonix is a progressive and electric house artist from Chicago, IL. His work has gained recognition from blogs such as http://House.NET and http://ThisSongSlaps.com, and is regularly supported by DJs across the country.',
+      description:
+        'Megaphonix headlining The Canopy Club! Megaphonix is a progressive and electric house artist from Chicago, IL. His work has gained recognition from blogs such as http://House.NET and http://ThisSongSlaps.com, and is regularly supported by DJs across the country.',
       timeRemaining: '11 days remaining',
       date: '5/11',
-      img: require('../assets/megaphonix.jpg'),
+      img: require('../../assets/megaphonix.jpg'),
       color: '#E5461F',
       isFavorited: false,
       isRedeemed: false,
@@ -127,17 +134,18 @@ const initialState = {
     {
       deal: '25% OFF SEASON TICKET',
       title: 'Fighting Illini',
-      description: 'Take 25% off a football season ticket for the 2018-2019 season.',
+      description:
+        'Take 25% off a football season ticket for the 2018-2019 season.',
       timeRemaining: '12 days remaining',
       date: '5/12',
-      img: require('../assets/seasonticket.jpg'),
+      img: require('../../assets/seasonticket.jpg'),
       color: '#E5461F',
       isFavorited: false,
       isRedeemed: false,
       index: 1, // set the index to length of data array
       type: 'deal',
       latitude: 40.0982516,
-      longitude:  -88.2447328,
+      longitude: -88.2447328,
       points: 0,
       pointsCost: 500,
       fromStore: true,
@@ -145,10 +153,11 @@ const initialState = {
     {
       deal: '50% OFF MAGIC SHOW',
       title: 'State Farm Center',
-      description: 'The Illusionists is a touring magic production which features a rotating cast of 5 to 8 magicians who all specialise in specific branches of magic from stage illusions to mind reading to escapology and comedic magic.',
+      description:
+        'The Illusionists is a touring magic production which features a rotating cast of 5 to 8 magicians who all specialise in specific branches of magic from stage illusions to mind reading to escapology and comedic magic.',
       timeRemaining: '15 days remaining',
       date: '5/15',
-      img: require('../assets/illusionists.jpg'),
+      img: require('../../assets/illusionists.jpg'),
       color: '#E5461F',
       isFavorited: false,
       isRedeemed: false,
@@ -159,45 +168,46 @@ const initialState = {
       points: 0,
       pointsCost: 250,
       fromStore: true,
-    }
-  ]
+    },
+  ],
 };
 
 const DataReducer = (state = initialState, action) => {
   switch (action.type) {
     case 'TOGGLE_FAVORITE':
       return {
-        data: state.data.map(
-          (item) => item.index === action.index ? {...item, isFavorited: !item.isFavorited}
-                              : item
+        data: state.data.map((item) =>
+          item.index === action.index
+            ? {...item, isFavorited: !item.isFavorited}
+            : item,
         ),
-        history: state.history.map(
-          (item) => item.index === action.index ? {...item, isFavorited: !item.isFavorited}
-            : item
+        history: state.history.map((item) =>
+          item.index === action.index
+            ? {...item, isFavorited: !item.isFavorited}
+            : item,
         ),
         userPoints: state.userPoints,
         store: state.store,
       };
     case 'REDEEM':
-      for(let i = 0; i < state.data.length; i++) {
-        if(state.data[i].index === action.index) {
+      for (let i = 0; i < state.data.length; i++) {
+        if (state.data[i].index === action.index) {
           state.history.unshift(state.data[i]);
           state.userPoints += state.data[i].points;
         }
       }
       return {
-        data: state.data.map(
-          (item) => item.index === action.index ? {...item, isRedeemed: true}
-                              : item
+        data: state.data.map((item) =>
+          item.index === action.index ? {...item, isRedeemed: true} : item,
         ),
         history: state.history,
         userPoints: state.userPoints,
         store: state.store,
       };
     case 'REDEEM_FROM_STORE':
-      for(let i = state.store.length - 1; i >= 0; i--) {
-        if(state.store[i].index === action.index) {
-          if(state.userPoints >= state.store[i].pointsCost) {
+      for (let i = state.store.length - 1; i >= 0; i--) {
+        if (state.store[i].index === action.index) {
+          if (state.userPoints >= state.store[i].pointsCost) {
             state.userPoints -= state.store[i].pointsCost;
             state.store[i].index = state.data.length;
             state.store[i].isRedeemed = true;
@@ -215,7 +225,6 @@ const DataReducer = (state = initialState, action) => {
       };
     default:
       return state;
-
   }
 };
 

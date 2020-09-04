@@ -1,9 +1,16 @@
+/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import { StyleSheet, Text, View, ImageBackground, TouchableWithoutFeedback } from 'react-native';
-import { Icon } from 'react-native-elements';
-
-import { toggle_favorite } from '../actions/index.js';
-import { connect } from 'react-redux';
+import {
+  StyleSheet,
+  Text,
+  View,
+  ImageBackground,
+  TouchableWithoutFeedback,
+} from 'react-native';
+import FontAwesome from 'react-native-vector-icons/dist/FontAwesome';
+import MaterialCommunity from 'react-native-vector-icons/dist/MaterialCommunityIcons';
+import {toggle_favorite} from '../actions/index.js';
+import {connect} from 'react-redux';
 
 class HomeCard extends React.Component {
   constructor(props) {
@@ -11,41 +18,115 @@ class HomeCard extends React.Component {
   }
 
   render() {
-    return(
+    return (
       <View style={styles.container}>
         <View style={{width: '85%'}}>
           <ImageBackground
-            style={{width: '100%', height: 200, flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'flex-start'}}
-            source={this.props.img}
-          >
+            style={{
+              width: '100%',
+              height: 200,
+              flexDirection: 'row',
+              justifyContent: 'flex-end',
+              alignItems: 'flex-start',
+            }}
+            source={this.props.img}>
             <View style={{marginTop: 16, marginRight: 16}}>
               {this.props.isFavorited ? (
-                <TouchableWithoutFeedback onPress={() => this.props.dispatch(toggle_favorite(this.props.index))}>
-                  <Icon type={'font-awesome'} name={'heart'} color={'red'} size={32} />
+                <TouchableWithoutFeedback
+                  onPress={() => this.props.toggleFavorite(this.props.index)}>
+                  <FontAwesome name={'heart'} color={'red'} size={32} />
                 </TouchableWithoutFeedback>
               ) : (
-                <TouchableWithoutFeedback onPress={() => this.props.dispatch(toggle_favorite(this.props.index))}>
-                  <Icon type={'font-awesome'} name={'heart'} color={'#FFF'} size={32} />
+                <TouchableWithoutFeedback
+                  onPress={() => this.props.toggleFavorite(this.props.index)}>
+                  <FontAwesome name={'heart'} color={'#FFF'} size={32} />
                 </TouchableWithoutFeedback>
               )}
             </View>
           </ImageBackground>
-          <View style={{backgroundColor: this.props.color, height: 30, justifyContent: 'center',}} >
-            <Text style={{paddingLeft: 12, color: '#FFF', fontFamily: 'quicksand-bold', fontSize: 22}}>{this.props.deal}</Text>
+          <View
+            style={{
+              backgroundColor: this.props.color,
+              justifyContent: 'center',
+              paddingVertical: 5,
+            }}>
+            <Text
+              style={{
+                paddingLeft: 12,
+                color: '#FFF',
+                fontFamily: 'Quicksand-Bold',
+                fontSize: 22,
+              }}>
+              {this.props.deal}
+            </Text>
           </View>
-          <View style={{height: 50, backgroundColor: '#F9F9F9', borderBottomLeftRadius: 10, borderBottomRightRadius: 10, borderBottomWidth: 1, borderBottomColor: '#e0e0e0', borderRightColor: '#e0e0e0', borderRightWidth: 1, borderLeftColor: '#e0e0e0', borderLeftWidth: 1, width: '100%'}}>
+          <View
+            style={{
+              backgroundColor: '#F9F9F9',
+              borderBottomLeftRadius: 10,
+              borderBottomRightRadius: 10,
+              borderBottomWidth: 1,
+              borderBottomColor: '#e0e0e0',
+              borderRightColor: '#e0e0e0',
+              borderRightWidth: 1,
+              borderLeftColor: '#e0e0e0',
+              borderLeftWidth: 1,
+              width: '100%',
+            }}>
             <View style={{flexDirection: 'row'}}>
-              <Text style={{paddingLeft: 12, paddingTop: 6, fontFamily: 'quicksand-bold', fontSize: 16, color: '#abacab'}}>{this.props.title}</Text>
-              <View style={{flex: 1, flexDirection: 'row', justifyContent: 'flex-end'}}>
-                <Text style={{paddingRight: 12, paddingTop: 6, fontFamily: 'quicksand-bold', fontSize: 16, color: '#d3d4d3'}}>{this.props.distance} mi</Text>
+              <Text
+                style={{
+                  paddingLeft: 12,
+                  paddingTop: 6,
+                  fontFamily: 'Quicksand-Bold',
+                  fontSize: 16,
+                  color: '#abacab',
+                }}>
+                {this.props.title}
+              </Text>
+              <View
+                style={{
+                  flex: 1,
+                  flexDirection: 'row',
+                  justifyContent: 'flex-end',
+                }}>
+                <Text
+                  style={{
+                    paddingRight: 12,
+                    paddingTop: 6,
+                    fontFamily: 'Quicksand-Bold',
+                    fontSize: 16,
+                    color: '#d3d4d3',
+                  }}>
+                  {this.props.distance} mi
+                </Text>
               </View>
             </View>
-            <View style={{flex: 1, flexDirection: 'row', justifyContent: 'flex-start'}}>
-              <Icon iconStyle={{paddingLeft: 12, paddingTop: 6}} type={'material-community'} name={'timer-sand'} size={18} color={'#d3d4d3'}/>
-              <Text style={{paddingLeft: 2, paddingTop: 6, fontFamily: 'quicksand-bold', fontSize: 16, color: '#d3d4d3'}}>{this.props.timeRemaining}</Text>
+            <View
+              style={{
+                flex: 1,
+                flexDirection: 'row',
+                justifyContent: 'flex-start',
+              }}>
+              <MaterialCommunity
+                style={{paddingLeft: 12, paddingTop: 6}}
+                name={'timer-sand'}
+                size={18}
+                color={'#d3d4d3'}
+              />
+              <Text
+                style={{
+                  paddingLeft: 2,
+                  paddingTop: 6,
+                  fontFamily: 'Quicksand-Bold',
+                  fontSize: 16,
+                  color: '#d3d4d3',
+                }}>
+                {this.props.timeRemaining}
+              </Text>
             </View>
           </View>
-          <View style={{paddingBottom: 25}}/>
+          <View style={{paddingBottom: 25}} />
         </View>
       </View>
     );
@@ -60,4 +141,10 @@ const styles = StyleSheet.create({
   },
 });
 
-export default connect()(HomeCard);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    toggleFavorite: (index) => {dispatch(toggle_favorite(index));},
+  };
+};
+
+export default connect(null, mapDispatchToProps)(HomeCard);
